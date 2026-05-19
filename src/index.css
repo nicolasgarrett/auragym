@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  
+  --color-accent: #00ff66;
+  --color-accent-dark: #00cc52;
+  --color-aura: #06B6D4;
+  --color-aura-dark: #0891B2;
+}
+
+@layer base {
+  body {
+    @apply bg-[#020617] text-slate-200 antialiased font-sans transition-colors duration-1000;
+  }
+}
+
+.aura-mode {
+  --color-accent: #ff2a00;
+  --color-accent-dark: #991b1b;
+  --color-aura: #ff2a00;
+  --color-aura-dark: #991b1b;
+  background-color: #050000 !important;
+  background-image: 
+    radial-gradient(circle at 50% 50%, #150204 0%, #030000 100%),
+    linear-gradient(rgba(255, 42, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 42, 0, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 30px 30px, 30px 30px;
+  background-position: center;
+  position: relative;
+  text-shadow: 0 0 1px rgba(255, 42, 0, 0.1);
+}
+
+/* Tactical glowing biometric scanning line moving across the page */
+.aura-mode::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 42, 0, 0.01) 15%, 
+    rgba(255, 42, 0, 0.3) 50%, 
+    rgba(255, 42, 0, 0.01) 85%, 
+    transparent 100%
+  );
+  box-shadow: 0 0 15px rgba(255, 42, 0, 0.4);
+  animation: aura-laser-sweep 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  z-index: 100;
+}
+
+@keyframes aura-laser-sweep {
+  0% { transform: translateY(-10%); opacity: 0; }
+  5% { opacity: 0.7; }
+  95% { opacity: 0.7; }
+  100% { transform: translateY(110vh); opacity: 0; }
+}
+
+.glass-panel {
+  @apply bg-white/[0.01] backdrop-blur-[100px] border border-white/[0.05];
+}
+
+.aura-mode .glass-panel {
+  background: rgba(5, 0, 0, 0.65) !important;
+  border-color: rgba(255, 42, 0, 0.08) !important;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.9), inset 0 0 12px rgba(255, 42, 0, 0.03);
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-linear-to-r from-white via-slate-200 to-slate-400;
+}
+
+.aura-mode .text-gradient {
+  background-image: linear-gradient(135deg, #ffffff 0%, #fecaca 50%, #f87171 100%) !important;
+}
+
+@keyframes aura-pulse {
+  0%, 100% { opacity: 0.15; filter: blur(60px); }
+  50% { opacity: 0.35; filter: blur(120px); }
+}
+
+@keyframes aura-red-cyber-glow {
+  0%, 100% { 
+    box-shadow: 0 0 40px rgba(255, 42, 0, 0.05), inset 0 0 15px rgba(255, 42, 0, 0.02);
+    border-color: rgba(255, 42, 0, 0.1);
+  }
+  50% { 
+    box-shadow: 0 0 60px rgba(255, 42, 0, 0.12), inset 0 0 25px rgba(255, 42, 0, 0.05);
+    border-color: rgba(255, 42, 0, 0.22);
+  }
+}
+
+.animate-glow {
+  animation: aura-pulse 10s ease-in-out infinite;
+}
+
+.glow-accent {
+  @apply drop-shadow-[0_0_30px_rgba(0,255,102,0.3)];
+}
+
+.aura-mode .glow-accent {
+  @apply drop-shadow-[0_0_35px_rgba(255,42,0,0.55)];
+  filter: drop-shadow(0 0 8px rgba(255,42,0,0.6));
+}
+
+/* Custom scroller inside Aura Mode for a tactical console feel */
+.aura-mode ::-webkit-scrollbar {
+  width: 6px;
+}
+.aura-mode ::-webkit-scrollbar-track {
+  background: #020000;
+}
+.aura-mode ::-webkit-scrollbar-thumb {
+  background: #ff2a00;
+  border-radius: 3px;
+}
+.aura-mode ::-webkit-scrollbar-thumb:hover {
+  background: #b31d00;
+}

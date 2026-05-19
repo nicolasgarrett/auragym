@@ -1,0 +1,6 @@
+{
+  "name": "Aura Performance Gym",
+  "description": "Academia premium focada em musculação de alta performance e bem-estar, oferecendo equipamentos de elite e acompanhamento exclusivo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
