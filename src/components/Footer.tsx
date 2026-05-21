@@ -6,7 +6,7 @@ interface FooterProps {
 }
 
 export default function Footer({ onOpenPrivacy }: FooterProps) {
-  const { setActiveTab } = useAura();
+  const { setActiveTab, isAuraMode } = useAura();
 
   const linksMap = [
     { name: "Sobre Nós", href: "#sobre-nos" },
@@ -38,17 +38,17 @@ export default function Footer({ onOpenPrivacy }: FooterProps) {
   };
 
   return (
-    <footer className="bg-zinc-950 border-t border-white/5 pt-20 pb-10">
+    <footer className="bg-zinc-950 border-t border-white/5 pt-16 md:pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          <div className="space-y-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          <div className="space-y-6 text-center md:text-left flex flex-col items-center md:items-start">
             <div className="flex items-center gap-2">
               <Dumbbell className="w-8 h-8 text-accent" />
               <span onClick={() => handleNavLinkClick("Home", "#home")} className="font-display text-2xl font-bold tracking-tighter uppercase italic cursor-pointer">
                 Aura<span className="text-accent">Gym</span>
               </span>
             </div>
-            <p className="text-zinc-500 text-sm leading-relaxed font-light">
+            <p className="text-zinc-500 text-sm leading-relaxed font-light max-w-xs">
               Elevando o conceito de treinamento físico ao patamar da arte e exclusividade. Onde a ciência encontra o alto rendimento.
             </p>
             <div className="flex gap-4">
@@ -144,6 +144,27 @@ export default function Footer({ onOpenPrivacy }: FooterProps) {
             </div>
           </div>
         </div>
+
+        {isAuraMode && (
+          <div className="mb-16 pt-8 border-t border-red-500/10">
+            <h4 className="text-red-500 font-black uppercase tracking-[0.2em] text-lg mb-6 flex items-center justify-center gap-3">
+              <Dumbbell className="w-5 h-5 animate-pulse" />AURAMAXXING<Dumbbell className="w-5 h-5 animate-pulse" />
+            </h4>
+            <div className="max-w-3xl mx-auto rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(239,68,68,0.1)] border border-red-500/20">
+              <iframe 
+                data-testid="embed-iframe" 
+                style={{ borderRadius: '12px' }} 
+                src="https://open.spotify.com/embed/playlist/41gKTGjoceOminuOTzMgAK?utm_source=generator&theme=0" 
+                width="100%" 
+                height="352" 
+                frameBorder="0" 
+                allowFullScreen={false} 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+        )}
 
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-600 uppercase tracking-widest">
           <p>© 2026 Aura Performance Gym. Todos os direitos reservados.</p>

@@ -33,16 +33,16 @@ export default function Hero() {
         <div className={`absolute inset-0 transition-colors duration-1000 ${isAuraMode ? 'bg-linear-to-t from-black via-black/90 to-black/20' : 'bg-linear-to-t from-zinc-950 via-zinc-950/50 to-transparent'}`} />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 text-center">
         <motion.div
           key={isAuraMode ? 'aura' : 'standard'}
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="flex justify-center mb-6"
+          className="flex justify-center mb-6 md:mb-8"
         >
-          <div className={`border backdrop-blur-sm px-4 py-1 rounded-full flex items-center gap-2 transition-colors duration-500 ${isAuraMode ? 'bg-aura/10 border-aura/20' : 'bg-accent/10 border-accent/20'}`}>
+          <div className={`border backdrop-blur-sm px-4 md:px-6 py-2 rounded-full flex items-center gap-2 md:gap-3 transition-colors duration-500 ${isAuraMode ? 'bg-aura/10 border-aura/20' : 'bg-accent/10 border-accent/20'}`}>
             {isAuraMode ? <Zap className="w-4 h-4 text-aura fill-aura" /> : <Star className="w-4 h-4 text-accent fill-accent" />}
-            <span className={`text-xs font-bold uppercase tracking-[0.2em] transition-colors duration-500 ${isAuraMode ? 'text-aura' : 'text-accent'}`}>
+            <span className={`text-[9px] md:text-xs font-black uppercase tracking-[0.25em] transition-colors duration-500 ${isAuraMode ? 'text-aura' : 'text-accent'}`}>
               {isAuraMode ? 'Protocolo Híbrido Ativado' : 'Exclusividade Aura'}
             </span>
           </div>
@@ -53,7 +53,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="font-display text-6xl md:text-[140px] font-black uppercase italic tracking-[-0.05em] leading-[0.85] mb-8"
+          className="font-display text-5xl sm:text-7xl md:text-[120px] lg:text-[140px] font-black uppercase italic tracking-[-0.05em] leading-[0.9] md:leading-[0.85] mb-8"
         >
           {isAuraMode ? (
             <>ATLETA <span className="text-aura glow-accent">HÍBRIDO</span><br />SEM LIMITES</>
@@ -66,7 +66,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-slate-400 text-sm md:text-lg max-w-xl mx-auto mb-12 font-medium uppercase tracking-[0.2em] leading-relaxed opacity-60"
+          className="text-slate-400 text-[10px] md:text-lg max-w-xl mx-auto mb-10 md:mb-12 font-bold uppercase tracking-[0.2em] leading-relaxed px-4 opacity-70"
         >
           {isAuraMode 
             ? "O ápice da biologia humana através de metodologias que unem força extrema e resistência cardiovascular de elite."

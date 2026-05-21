@@ -193,7 +193,7 @@ export default function Modalities() {
   return (
     <section 
       id="modalidades" 
-      className={`py-28 relative transition-all duration-1000 overflow-hidden ${
+      className={`py-16 md:py-28 relative transition-all duration-1000 overflow-hidden ${
         isAuraMode 
           ? "bg-black text-white" 
           : "bg-slate-950 text-slate-200"
@@ -208,27 +208,27 @@ export default function Modalities() {
         /* =========================================================================
            MODO AURA: SEVERE HIGH-CONTRAST PURE RED & BLACK GLITCH LAYOUT
            ========================================================================= */
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
           
           {/* Header block with extreme warning status */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-8 pb-10 border-b border-red-600/20">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[4px] bg-red-600 text-black text-[9px] font-black uppercase tracking-[0.25em] mb-4 shadow-[0_0_15px_rgba(255,0,51,0.5)]">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 md:mb-16 gap-6 md:gap-8 pb-6 md:pb-10 border-b border-red-600/20">
+            <div className="text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[4px] bg-red-600 text-black text-[8px] md:text-[9px] font-black uppercase tracking-[0.25em] mb-4 shadow-[0_0_15px_rgba(255,0,51,0.5)]">
                 <span className="w-2.5 h-2.5 rounded-full bg-black animate-ping" />
                 SISTEMA INVASIVO AURA RED
               </div>
-              <h2 className="text-5xl md:text-8xl font-display font-black uppercase tracking-tighter leading-none italic select-none">
+              <h2 className="text-3xl md:text-5xl lg:text-8xl font-display font-black uppercase tracking-tighter leading-tight lg:leading-none italic">
                 SÉRIES DE <span className="text-red-500 glow-accent italic animate-pulse">ALTO ESTRESSE</span>
               </h2>
             </div>
             
-            <div className="max-w-md text-left">
-              <p className="text-zinc-500 text-[10px] uppercase font-black tracking-widest leading-relaxed mb-4">
+            <div className="max-w-md text-center lg:text-left mx-auto lg:mx-0">
+              <p className="text-zinc-500 text-[8px] md:text-[10px] uppercase font-black tracking-widest leading-relaxed mb-4">
                 O CATÁLOGO DE TREINO EM REVOLTA: Clique sobre qualquer célula abaixo para desmembrar o cronograma e agendar sua entrada grátis de alta tensão.
               </p>
-              <div className="flex items-center gap-2 border border-red-600/30 bg-red-600/5 px-4 py-2.5 rounded-lg">
+              <div className="flex items-center justify-center lg:justify-start gap-2 border border-red-600/30 bg-red-600/5 px-4 py-2.5 rounded-lg">
                 <Zap className="w-4 h-4 text-red-500 animate-bounce" />
-                <span className="text-[9px] text-red-400 font-mono font-black uppercase tracking-widest">
+                <span className="text-[8px] md:text-[9px] text-red-400 font-mono font-black uppercase tracking-widest">
                   ALERTA: CARDIO REATIVO & CRIOGENIA INSTANTÂNEA ATIVA
                 </span>
               </div>
@@ -236,7 +236,7 @@ export default function Modalities() {
           </div>
 
           {/* Catalog grid with the beautiful previous photos */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {modalitiesList.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -302,26 +302,26 @@ export default function Modalities() {
         /* =========================================================================
            STANDARD CLIENT: PREMIUM LUXURY COLD SLATE MINIMALIST DECK
            ========================================================================= */
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
           
           {/* Header block */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 pb-8 border-b border-white/5">
-            <div>
-              <span className="text-accent font-black uppercase tracking-[0.25em] text-xs flex items-center gap-2">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6 pb-6 md:pb-8 border-b border-white/5">
+            <div className="text-center md:text-left">
+              <span className="text-accent font-black uppercase tracking-[0.25em] text-[10px] md:text-xs flex items-center justify-center md:justify-start gap-2">
                 <Sparkles className="w-4 h-4 text-accent animate-pulse" />
                 CATÁLOGO EXCLUSIVO
               </span>
-              <h2 className="text-4xl md:text-6xl font-display font-black uppercase italic mt-3 tracking-tighter leading-none text-white">
+              <h2 className="text-3xl md:text-6xl font-display font-black uppercase italic mt-2 md:mt-3 tracking-tighter leading-tight text-white">
                 NOSSAS <span className="text-accent glow-accent">MODALIDADES</span>
               </h2>
             </div>
-            <p className="text-zinc-500 text-sm max-w-md">
+            <p className="text-zinc-500 text-xs md:text-sm max-w-md text-center md:text-right mx-auto md:mx-0">
               Selecione o programa de sua preferência abaixo para examinar os benefícios, instalações exclusivas e agendar sua sessão cortesia premium.
             </p>
           </div>
 
           {/* Grid Layout of modalities using original gorgeous photos */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {modalitiesList.map((item, index) => {
               return (
                 <motion.div
@@ -392,7 +392,7 @@ export default function Modalities() {
               initial={{ opacity: 0, scale: 0.95, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 30 }}
-              className={`relative w-full max-w-4xl border rounded-[36px] overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.95)] max-h-[90vh] overflow-y-auto ${
+              className={`relative w-full max-w-4xl border rounded-[28px] md:rounded-[36px] overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.95)] max-h-[90vh] overflow-y-auto ${
                 isAuraMode 
                   ? "bg-[#090203] border-red-500/20 text-slate-100" 
                   : "bg-slate-950 border-white/10 text-slate-200"
@@ -400,15 +400,15 @@ export default function Modalities() {
             >
               <button
                 onClick={() => setSelectedModality(null)}
-                className="absolute top-6 right-6 p-2 rounded-full bg-black/60 border border-white/10 hover:border-white/30 text-white z-10 transition-colors"
+                className="absolute top-4 right-4 md:top-6 md:right-6 p-2 rounded-full bg-black/60 border border-white/10 hover:border-white/30 text-white z-20 transition-colors"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4 md:w-5 md:h-5" />
               </button>
 
               <div className="grid grid-cols-1 lg:grid-cols-12">
                 
                 {/* Left Side: Photo & Key details of Class */}
-                <div className="lg:col-span-5 relative h-64 lg:h-full min-h-[300px] border-r border-white/5 bg-zinc-900">
+                <div className="lg:col-span-5 relative h-48 sm:h-64 lg:h-full min-h-[250px] md:min-h-[300px] border-b lg:border-r lg:border-b-0 border-white/5 bg-zinc-900">
                   <img
                     src={selectedModality.image}
                     alt={selectedModality.title}

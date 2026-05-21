@@ -14,6 +14,9 @@ import Plans from "./components/Plans";
 import StoreSection from "./components/StoreSection";
 import Footer from "./components/Footer";
 import Testimonials from "./components/Testimonials";
+import AdminDashboard from "./components/AdminDashboard";
+import WorkoutSession from "./components/WorkoutSession";
+import AdminProtectedRoute from "./components/AdminProtectedRoute";
 import BackgroundMusic from "./components/BackgroundMusic";
 import Chatbot from "./components/Chatbot";
 import PaymentModal from "./components/PaymentModal";
@@ -25,7 +28,7 @@ import { motion, useScroll, useSpring } from "motion/react";
 
 export default function App() {
   const { scrollYProgress } = useScroll();
-  const { activeCheckout, closeCheckout, isAuraMode, activeTab } = useAura();
+  const { activeCheckout, closeCheckout, isAuraMode, activeTab, isAdmin } = useAura();
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
 
   const scaleX = useSpring(scrollYProgress, {
@@ -69,6 +72,16 @@ export default function App() {
         <div className="pt-20">
           <BlogSection />
         </div>
+      )}
+
+      {activeTab === "treino" && (
+        <WorkoutSession />
+      )}
+
+      {activeTab === "admin" && (
+        <AdminProtectedRoute>
+          <AdminDashboard />
+        </AdminProtectedRoute>
       )}
 
       <Footer onOpenPrivacy={() => setIsPrivacyOpen(true)} />

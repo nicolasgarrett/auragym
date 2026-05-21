@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Volume2, VolumeX, Play, Pause, SkipForward, SkipBack, Music, List, Disc, X } from "lucide-react";
+import { Volume2, VolumeX, Play, Pause, SkipForward, SkipBack, Music, List, Disc, X, ExternalLink } from "lucide-react";
 import { useAura } from "../contexts/AuraContext";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -9,32 +9,41 @@ interface Song {
   artist: string;
   duration: string;
   url: string;
+  youtubeUrl?: string;
 }
 
 const PHONK_PLAYLIST: Song[] = [
   {
     id: 1,
+    title: "TUCA DONKA (PHONK)",
+    artist: "CURSEDEV x Dj Playero",
+    duration: "2:52",
+    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    youtubeUrl: "https://youtu.be/34Pl2DTuwoQ?si=YtNK_R6YgCnobTju"
+  },
+  {
+    id: 2,
     title: "LÚPUS OVERDRIVE",
     artist: "Alpha Core Beats",
     duration: "6:12",
     url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
   },
   {
-    id: 2,
+    id: 3,
     title: "ALPHA INSTINCT",
     artist: "Drift Phonk Syndicate",
     duration: "7:05",
     url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
   },
   {
-    id: 3,
+    id: 4,
     title: "CYBER-MATILHA BASSOUT",
     artist: "GigaChad Phonk Lord",
     duration: "5:44",
     url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
   },
   {
-    id: 4,
+    id: 5,
     title: "APEX VIP SOBERANO SHOCK",
     artist: "Aura Noise Overdrive",
     duration: "5:02",
@@ -158,36 +167,43 @@ export default function BackgroundMusic() {
 
             <div className="space-y-2 max-h-44 overflow-y-auto custom-scrollbar">
               {PHONK_PLAYLIST.map((song, idx) => (
-                <button
-                  key={song.id}
-                  onClick={() => handleSelectTrack(idx)}
-                  className={`w-full text-left p-2.5 rounded-xl border text-[10px] flex items-center justify-between transition-all group cursor-pointer ${
-                    currentSongIndex === idx 
-                      ? (isAuraMode ? "bg-red-500/10 border-red-500/30 text-white" : "bg-[#00ff66]/10 border-[#00ff66]/30 text-white")
-                      : "bg-white/[0.02] border-transparent hover:border-white/10 hover:bg-white/[0.05]"
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="flex-shrink-0">
-                      {currentSongIndex === idx && isPlaying ? (
-                        <Disc className={`w-3.5 h-3.5 animate-spin ${isAuraMode ? 'text-red-500' : 'text-accent'}`} />
-                      ) : (
-                        <span className="text-slate-500 font-mono text-[9px]">0{idx + 1}</span>
-                      )}
+                  <button
+                    key={song.id}
+                    onClick={() => handleSelectTrack(idx)}
+                    className={`w-full text-left p-2.5 rounded-xl border text-[10px] flex items-center justify-between transition-all group cursor-pointer ${
+                      currentSongIndex === idx 
+                        ? (isAuraMode ? "bg-red-500/10 border-red-500/30 text-white" : "bg-[#00ff66]/10 border-[#00ff66]/30 text-white")
+                        : "bg-white/[0.02] border-transparent hover:border-white/10 hover:bg-white/[0.05]"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <div className="flex-shrink-0">
+                        {currentSongIndex === idx && isPlaying ? (
+                          <Disc className={`w-3.5 h-3.5 animate-spin ${isAuraMode ? 'text-red-500' : 'text-accent'}`} />
+                        ) : (
+                          <span className="text-slate-500 font-mono text-[9px]">0{idx + 1}</span>
+                        )}
+                      </div>
+                      <div className="truncate">
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          <p className={`font-bold uppercase tracking-wide truncate ${currentSongIndex === idx ? (isAuraMode ? "text-red-400" : "text-accent") : "text-slate-300"}`}>
+                            {song.title}
+                          </p>
+                          {song.youtubeUrl && (
+                            <span className="text-[6px] shrink-0 font-extrabold uppercase font-mono px-1 py-0.2 rounded bg-red-500/15 border border-red-500/20 text-red-500 leading-none">
+                              YT CLIP
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-[8px] text-slate-500 uppercase tracking-widest truncate mt-0.5">{song.artist}</p>
+                      </div>
                     </div>
-                    <div className="truncate">
-                      <p className={`font-bold uppercase tracking-wide truncate ${currentSongIndex === idx ? (isAuraMode ? "text-red-400" : "text-accent") : "text-slate-300"}`}>
-                        {song.title}
-                      </p>
-                      <p className="text-[8px] text-slate-500 uppercase tracking-widest truncate mt-0.5">{song.artist}</p>
-                    </div>
-                  </div>
-                  <span className="text-[8px] font-mono text-slate-500 group-hover:text-slate-300 transition-colors ml-2">
-                    {song.duration}
-                  </span>
-                </button>
-              ))}
-            </div>
+                    <span className="text-[8px] font-mono text-slate-500 group-hover:text-slate-300 transition-colors ml-2">
+                      {song.duration}
+                    </span>
+                  </button>
+                ))}
+              </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -251,12 +267,30 @@ export default function BackgroundMusic() {
                 <span className={`w-0.5 rounded-full ${isAuraMode ? 'bg-red-500' : 'bg-[#00ff66]'} duration-200 ${isPlaying ? 'h-2 animate-pulse' : 'h-0.5'}`} style={{ animationDelay: '300ms' }} />
               </div>
             </div>
-            <span className="text-[9.5px] font-black uppercase tracking-tight truncate text-slate-100">
+            <span className="text-[9.5px] font-black uppercase tracking-tight truncate text-slate-100 flex items-center gap-1">
               {currentSong.title}
             </span>
-            <span className="text-[7.5px] font-semibold text-slate-500 uppercase tracking-widest truncate mt-0.5">
-              {currentSong.artist}
-            </span>
+            <div className="flex items-center gap-1.5 mt-0.5 min-w-0">
+              <span className="text-[7.5px] font-semibold text-slate-500 uppercase tracking-widest truncate">
+                {currentSong.artist}
+              </span>
+              {currentSong.youtubeUrl && (
+                <a
+                  href={currentSong.youtubeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-0.5 text-[6.5px] font-black tracking-widest uppercase px-1 py-0.2 rounded border transition-all ${
+                    isAuraMode 
+                      ? "text-red-500 border-red-500/20 bg-red-500/5 hover:bg-red-500 hover:text-black hover:border-red-500" 
+                      : "text-accent border-accent/20 bg-accent/5 hover:bg-accent hover:text-black hover:border-accent"
+                  }`}
+                  title="Ver vídeo oficial no YouTube"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  CLIP <ExternalLink className="w-1.5 h-1.5" />
+                </a>
+              )}
+            </div>
 
             {/* Core progress bar & duration timer */}
             {isPlaying && (
@@ -316,7 +350,7 @@ export default function BackgroundMusic() {
             {/* Expand playlist toggle */}
             <button 
               onClick={(e) => { e.stopPropagation(); setIsExpanded(!isExpanded); }} 
-              className={`p-1 rounded-lg transition-colors cursor-pointer ${
+              className={`p-1 rounded-lg transition-colors cursor-pointer ml-1 ${
                 isExpanded ? (isAuraMode ? "text-red-500 bg-white/5" : "text-accent bg-white/5") : "text-slate-500 hover:text-white"
               }`}
               title="Mostrar Catálogo Phonk"

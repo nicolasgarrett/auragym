@@ -1,6 +1,6 @@
 {
   "name": "Aura Performance Gym",
-  "description": "Academia premium focada em musculação de alta performance e bem-estar, oferecendo equipamentos de elite e acompanhamento exclusivo.",
+  "description": "Ecossistema premium de bio-otimização para atletas de elite, integrando IA Lúpus para monitoramento de performance, gamificação de treinos e planos de biohacking.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

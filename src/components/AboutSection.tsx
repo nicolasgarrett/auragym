@@ -31,7 +31,7 @@ export default function AboutSection() {
   return (
     <section 
       id="sobre-nos" 
-      className={`py-28 relative overflow-hidden border-t transition-all duration-1000 ${
+      className={`py-16 md:py-28 relative overflow-hidden border-t transition-all duration-1000 ${
         isAuraMode 
           ? "bg-black text-white border-red-500/10" 
           : "bg-slate-950 text-slate-200 border-white/5"
@@ -40,73 +40,73 @@ export default function AboutSection() {
       {/* Background visual graphics */}
       <div className="absolute inset-x-0 top-0 h-40 bg-linear-to-b from-black/20 to-transparent pointer-events-none" />
       {isAuraMode && (
-        <div className="absolute top-[20%] left-[-10%] w-[450px] h-[450px] bg-red-600/[0.04] blur-[150px] rounded-full pointer-events-none" />
+        <div className="absolute top-[20%] left-[-10%] w-[300px] md:w-[450px] h-[300px] md:h-[450px] bg-red-600/[0.04] blur-[100px] md:blur-[150px] rounded-full pointer-events-none" />
       )}
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
         
         {isAuraMode ? (
           /* ==========================================================
              MODO AURA: PUNK CYBERNETIC BRUTALIST GRID LAYOUT (RED/BLACK)
              ========================================================== */
-          <div className="space-y-16">
+          <div className="space-y-12 md:space-y-16">
             
             {/* Header Glitch Section */}
-            <div className="border-l-4 border-red-600 pl-6 pb-2">
+            <div className="border-l-4 border-red-600 pl-4 md:pl-6 pb-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-500/10 rounded-lg border border-red-500/35 mb-4">
                 <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" />
-                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-red-500 font-mono">
+                <span className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-red-500 font-mono">
                   ORIGENS SECULARES / ARQUIVO-01
                 </span>
               </div>
-              <h2 className="text-5xl md:text-8xl font-display font-black tracking-tighter uppercase italic leading-none text-white">
+              <h2 className="text-4xl md:text-8xl font-display font-black tracking-tighter uppercase italic leading-tight text-white">
                 FORJADO SOB <span className="text-red-500 glow-accent italic animate-pulse">PRESSÃO MÁXIMA</span>
               </h2>
             </div>
 
             {/* Fictional Story Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10">
               
               {/* Vertical timeline details */}
-              <div className="lg:col-span-5 space-y-10">
+              <div className="lg:col-span-5 space-y-8 md:space-y-10">
                 <div>
-                  <h3 className="text-2xl font-display font-black text-white uppercase italic tracking-wider mb-2">
+                  <h3 className="text-xl md:text-2xl font-display font-black text-white uppercase italic tracking-wider mb-2">
                     A TESE BIOMÉTRICA DE 2019
                   </h3>
                   <div className="h-[2px] w-1/3 bg-red-600 mb-6" />
-                  <p className="text-zinc-400 text-xs font-medium uppercase tracking-wider leading-relaxed">
+                  <p className="text-zinc-400 text-[10px] md:text-xs font-medium uppercase tracking-wider leading-relaxed">
                     Nossa história não pertence ao marketing de massa. AuraGym emergiu de laboratórios científicos clandestinos dedicados à superação genética. No início, testávamos resistência sob frio ártico e LPO sob frequências cardíacas reguladas por oxigênio enriquecido. 
                   </p>
-                  <blockquote className="border-l-2 border-red-500 pl-4 mt-6 py-1 text-slate-300 font-bold uppercase tracking-widest text-[10px] italic">
+                  <blockquote className="border-l-2 border-red-500 pl-4 mt-6 py-1 text-slate-300 font-bold uppercase tracking-widest text-[9px] md:text-[10px] italic">
                     "O músculo é apenas o veículo. A verdadeira regeneração está no equilíbrio bioquímico celular." <br/>
                     <span className="text-red-500 font-black">— Dr. Marcus Sterling</span>
                   </blockquote>
                 </div>
 
-                <div className="p-6 rounded-3xl bg-zinc-950 border border-red-500/15 relative overflow-hidden">
+                <div className="p-5 md:p-6 rounded-[24px] md:rounded-3xl bg-zinc-950 border border-red-500/15 relative overflow-hidden">
                   <div className="absolute right-3 top-3">
-                    <AlertCircle className="w-5 h-5 text-red-600 opacity-60" />
+                    <AlertCircle className="w-4 h-4 md:w-5 md:h-5 text-red-600 opacity-60" />
                   </div>
-                  <h4 className="text-xs font-black uppercase tracking-widest text-white mb-2">CORES SENSORIAIS</h4>
-                  <p className="text-zinc-500 text-[10px] uppercase font-bold tracking-widest leading-relaxed">
+                  <h4 className="text-[10px] md:text-xs font-black uppercase tracking-widest text-white mb-2">CORES SENSORIAIS</h4>
+                  <p className="text-zinc-500 text-[9px] md:text-[10px] uppercase font-bold tracking-widest leading-relaxed">
                     A atmosfera vermelha e escura (AURA) simula taxas de indução adrenal extremas, permitindo que a mente foque 100% no estresse mecânico positivo da fibra. É onde a ciência da força se manifesta.
                   </p>
                 </div>
               </div>
 
               {/* Interactive Milestones Selector */}
-              <div className="lg:col-span-7 bg-zinc-950 p-8 md:p-12 rounded-[36px] border border-zinc-900 flex flex-col justify-between">
+              <div className="lg:col-span-7 bg-zinc-950 p-6 md:p-12 rounded-[28px] md:rounded-[36px] border border-zinc-900 flex flex-col justify-between">
                 <div>
-                  <span className="text-[10px] text-zinc-500 font-black tracking-[0.3em] uppercase block mb-6">
+                  <span className="text-[9px] md:text-[10px] text-zinc-500 font-black tracking-[0.3em] uppercase block mb-5 md:mb-6">
                     MENSURAR EVOLUÇÃO TEMPORAL:
                   </span>
 
-                  <div className="flex gap-3 mb-10 overflow-x-auto pb-2 scrollbar-none">
+                  <div className="flex gap-2 md:gap-3 mb-8 md:mb-10 overflow-x-auto pb-2 scrollbar-none snap-x">
                     {historyMilestones.map((ms, index) => (
                       <button
                         key={ms.year}
                         onClick={() => setActiveMilestone(index)}
-                        className={`px-6 py-3.5 rounded-2xl text-xs font-black uppercase tracking-widest font-mono transition-all ${
+                        className={`px-5 md:px-6 py-3 md:py-3.5 rounded-xl md:rounded-2xl text-[10px] md:text-xs font-black uppercase tracking-widest font-mono transition-all snap-start ${
                           activeMilestone === index
                             ? "bg-red-500 text-black shadow-lg shadow-red-500/20"
                             : "bg-black border border-zinc-900 text-zinc-500 hover:text-white"

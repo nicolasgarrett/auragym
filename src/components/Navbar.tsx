@@ -10,7 +10,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
-  const { isAuraMode, setIsAuraMode, user, handleLogout, activeTab, setActiveTab, currentRank } = useAura();
+  const { isAuraMode, setIsAuraMode, user, handleLogout, activeTab, setActiveTab, currentRank, isAdmin } = useAura();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,10 +22,15 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Home", href: "#home" },
+    { name: "Treino", href: "#treino" },
     { name: "Modalidades", href: "#modalidades" },
     { name: "Diferenciais", href: "#diferenciais" },
     { name: "Planos", href: "#planos" },
   ];
+
+  if (isAdmin) {
+    navLinks.push({ name: "Admin", href: "#admin" });
+  }
 
   // Redirect if in unauthorized tab during Aura Mode
   useEffect(() => {
@@ -39,11 +44,17 @@ export default function Navbar() {
     if (name === "Home") {
       setActiveTab("home");
       window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (name === "Treino") {
+      setActiveTab("treino");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else if (name === "Sobre Nós") {
       setActiveTab("sobre-nos");
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else if (name === "Blog") {
       setActiveTab("blog");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (name === "Admin") {
+      setActiveTab("admin");
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
       setActiveTab("home");
@@ -59,8 +70,10 @@ export default function Navbar() {
 
   const isLinkActive = (name: string) => {
     if (name === "Home") return activeTab === "home";
+    if (name === "Treino") return activeTab === "treino";
     if (name === "Sobre Nós") return activeTab === "sobre-nos";
     if (name === "Blog") return activeTab === "blog";
+    if (name === "Admin") return activeTab === "admin";
     return false;
   };
 
@@ -74,19 +87,43 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <div 
           onClick={() => handleNavLinkClick("Home", "#home")}
-          className="flex items-center gap-3 cursor-pointer select-none"
+          className="flex items-center gap-4 cursor-pointer select-none"
         >
-          <div className={`p-2 rounded-xl transition-colors duration-500 ${isAuraMode ? 'bg-aura/10' : 'bg-accent/10'}`}>
-            <Dumbbell className={`w-7 h-7 transition-colors duration-500 ${isAuraMode ? 'text-aura' : 'text-accent'}`} />
+          {isAuraMode && (
+            <img 
+              src="/logo.png" 
+              alt="Aura Logo" 
+              className="w-12 h-12 object-contain rounded-xl shadow-[0_0_15px_rgba(239,68,68,0.5)]" 
+              onError={(e) => { e.currentTarget.style.display = 'none'; }} 
+            />
+          )}
+          <div className={`p-2 rounded-xl transition-colors duration-500 ${isAuraMode ? 'bg-aura/10 hidden' : 'bg-accent/10 flex'} shrink-0 relative items-center justify-center overflow-hidden`}>
+            <Dumbbell className={`w-7 h-7 transition-colors duration-500 text-accent`} />
           </div>
-          <span className="font-display text-2xl font-black tracking-tighter uppercase italic leading-none">
+          <span className="font-display text-2xl font-black tracking-tighter uppercase italic leading-none whitespace-nowrap">
             Aura<span className={isAuraMode ? 'text-aura' : 'text-accent'}>Gym</span>
           </span>
         </div>
 
+        {/* Mobile Menu Toggle */}
+        <div className="flex md:hidden items-center gap-2">
+          <button 
+            onClick={() => setIsAuraMode(!isAuraMode)}
+            className={`p-3 rounded-xl transition-all ${isAuraMode ? 'bg-aura/10 text-aura' : 'bg-white/5 text-zinc-400 border border-white/5'}`}
+          >
+            <Zap className={`w-5 h-5 ${isAuraMode ? 'fill-current' : ''}`} />
+          </button>
+          <button 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="p-3 bg-white/5 rounded-xl text-white active:scale-95 transition-all border border-white/5"
+          >
+            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-10">
-          <div className="flex items-center gap-8">
+        <div className="hidden md:flex flex-1 items-center justify-end gap-6 lg:gap-10 ml-12">
+          <div className="flex items-center gap-4 lg:gap-8 shrink-0">
             {navLinks.map((link) => {
               const active = isLinkActive(link.name);
               return (
@@ -160,85 +197,63 @@ export default function Navbar() {
 
         <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
         <ProfileModal isOpen={isProfileModalOpen} onClose={() => setIsProfileModalOpen(false)} />
-
-        {/* Mobile Menu Button */}
-        <button className="md:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-          {isMenuOpen ? <X /> : <Menu />}
-        </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="absolute top-full left-0 w-full bg-slate-900 border-b border-white/10 p-6 flex flex-col gap-4 md:hidden overflow-hidden"
+            className="absolute top-full left-0 w-full bg-black/95 backdrop-blur-2xl border-b border-white/10 p-6 flex flex-col gap-4 md:hidden overflow-hidden shadow-2xl"
           >
-            {/* Mobile Search */}
-            <div className="relative mb-2">
-              <Search className={`absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 transition-colors ${isAuraMode ? 'text-aura' : 'text-accent'}`} />
-              <input 
-                type="text" 
-                placeholder="Buscar aulas ou informações" 
-                className={`w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-[10px] font-black uppercase tracking-widest outline-none transition-all placeholder:text-slate-600 ${isAuraMode ? 'focus:border-aura' : 'focus:border-accent'}`}
-              />
+            <div className="space-y-4">
+              {navLinks.map((link) => {
+                const active = isLinkActive(link.name);
+                return (
+                  <button
+                    key={link.name}
+                    onClick={() => handleNavLinkClick(link.name, link.href)}
+                    className={`w-full text-left py-4 px-6 rounded-2xl font-black uppercase italic tracking-widest text-lg transition-all ${
+                      active 
+                        ? (isAuraMode ? 'bg-aura text-black' : 'bg-accent text-white') 
+                        : 'text-zinc-500 hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    {link.name}
+                  </button>
+                );
+              })}
             </div>
 
-            {navLinks.map((link) => {
-              const active = isLinkActive(link.name);
-              return (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavLinkClick(link.name, link.href);
-                  }}
-                  className={`text-lg font-medium transition-colors ${
-                    active 
-                      ? `${isAuraMode ? 'text-aura font-black' : 'text-accent font-black'}` 
-                      : 'text-slate-300 hover:text-white'
+            <div className="pt-6 border-t border-white/5 flex flex-col gap-3">
+              {user ? (
+                <>
+                  <button 
+                    onClick={() => { setIsProfileModalOpen(true); setIsMenuOpen(false); }}
+                    className="w-full py-4 rounded-xl bg-white/5 border border-white/10 text-white font-black uppercase italic tracking-widest text-xs flex items-center justify-center gap-3"
+                  >
+                    <UserIcon className="w-4 h-4" /> Minha Conta
+                  </button>
+                  <button 
+                    onClick={() => { handleLogout(); setIsMenuOpen(false); }}
+                    className="w-full py-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 font-black uppercase italic tracking-widest text-xs flex items-center justify-center gap-3"
+                  >
+                    <LogOut className="w-4 h-4" /> Sair da Matilha
+                  </button>
+                </>
+              ) : (
+                <button 
+                  onClick={() => { setIsAuthModalOpen(true); setIsMenuOpen(false); }}
+                  className={`w-full py-5 rounded-2xl font-black uppercase italic tracking-[0.2em] text-xs flex items-center justify-center gap-3 shadow-2xl ${
+                    isAuraMode ? 'bg-white text-black' : 'bg-accent text-white'
                   }`}
                 >
-                  {link.name}
-                </a>
-              );
-            })}
-
-            {user && (
-              <button 
-                onClick={() => {
-                  setIsProfileModalOpen(true);
-                  setIsMenuOpen(false);
-                }}
-                className="flex items-center justify-center gap-2 bg-white/5 text-white py-3 rounded-xl font-bold uppercase text-xs border border-white/10"
-              >
-                <UserIcon className="w-4 h-4" />
-                Perfil: {user.displayName}
-              </button>
-            )}
-
-            <button 
-              onClick={() => {
-                setIsAuraMode(!isAuraMode);
-                setIsMenuOpen(false);
-              }}
-              className="flex items-center justify-center gap-2 bg-aura text-black py-3 rounded-xl font-bold uppercase text-xs"
-            >
-              <Zap className="w-4 h-4 fill-black" />
-              Modo Aura: {isAuraMode ? 'ON' : 'OFF'}
-            </button>
-            <button 
-              onClick={() => {
-                user ? handleLogout() : setIsAuthModalOpen(true);
-                setIsMenuOpen(false);
-              }}
-              className="bg-accent text-white w-full py-4 rounded-xl font-bold uppercase text-xs"
-            >
-              {user ? 'Sair' : 'Matricule-se'}
-            </button>
+                  <Zap className="w-4 h-4 fill-current" /> Começar Agora
+                </button>
+              )}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

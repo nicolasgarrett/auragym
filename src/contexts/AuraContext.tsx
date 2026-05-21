@@ -8,6 +8,11 @@ interface UserProfile {
   email: string;
   auraModeEnabled: boolean;
   plan: string;
+  xp: number;
+  level: number;
+  streak: number;
+  lastCheckIn?: any;
+  badges: string[];
 }
 
 export interface MemberRank {
@@ -97,11 +102,13 @@ interface AuraContextType {
   activeCheckout: ActiveCheckout | null;
   openCheckout: (planName: string, planPrice: string, initialStep?: ActiveCheckout["initialStep"]) => void;
   closeCheckout: () => void;
-  activeTab: "home" | "sobre-nos" | "blog";
-  setActiveTab: (tab: "home" | "sobre-nos" | "blog") => void;
+  activeTab: "home" | "sobre-nos" | "blog" | "admin" | "treino";
+  setActiveTab: (tab: "home" | "sobre-nos" | "blog" | "admin" | "treino") => void;
   isRankModalOpen: boolean;
   setIsRankModalOpen: (val: boolean) => void;
   currentRank: MemberRank;
+  isAdmin: boolean;
+  completeWorkout: () => Promise<void>;
 }
 
 const AuraContext = createContext<AuraContextType | undefined>(undefined);
@@ -114,20 +121,68 @@ export function AuraProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeCheckout, setActiveCheckout] = useState<ActiveCheckout | null>(null);
-  const [activeTab, setActiveTab] = useState<"home" | "sobre-nos" | "blog">("home");
+  const [activeTab, setActiveTab] = useState<"home" | "sobre-nos" | "blog" | "admin" | "treino">("home");
   const [isRankModalOpen, setIsRankModalOpen] = useState(false);
 
-  const isAdmin = user?.email === 'nicolasgarrett110@gmail.com' || localStorage.getItem('auragym_admin_force') === 'true';
+  const ADMIN_EMAILS = [
+    'nicolasgarrett110@gmail.com',
+    'admin@auragym.com.br',
+    'abner.s.s.machado@gmail.com',
+  ];
+
+  const isAdmin = (user?.email && ADMIN_EMAILS.includes(user.email)) || localStorage.getItem('auragym_admin_force') === 'true';
   const currentRank = isAdmin ? MEMBER_RANKS[2] : getRankByPlan(profile?.plan || "");
-  const activeProfile = isAdmin 
-    ? {
-        uid: user?.uid || "admin-forced",
-        displayName: profile?.displayName || "Nicolas Garrett (ADMIN)",
-        email: user?.email || profile?.email || "nicolasgarrett110@gmail.com",
-        auraModeEnabled: isAuraModeState,
-        plan: "Black VIP (Super Admin)"
-      }
-    : profile;
+  
+  const initialProfile = {
+    uid: user?.uid || "admin-forced",
+    displayName: profile?.displayName || "Nicolas Garrett (ADMIN)",
+    email: user?.email || profile?.email || "nicolasgarrett110@gmail.com",
+    auraModeEnabled: isAuraModeState,
+    plan: "Black VIP (Super Admin)",
+    xp: profile?.xp || 15000,
+    level: profile?.level || 99,
+    streak: profile?.streak || 365,
+    badges: profile?.badges || ["Fundador", "Soberano", "Lobo Alfa"]
+  };
+
+  const activeProfile = isAdmin ? initialProfile : profile;
+
+  const completeWorkout = async () => {
+    if (!user || !profile) return;
+
+    const now = new Date();
+    const lastCheckIn = profile.lastCheckIn?.toDate ? profile.lastCheckIn.toDate() : new Date(profile.lastCheckIn || 0);
+    const isSameDay = lastCheckIn.toDateString() === now.toDateString();
+
+    if (isSameDay) {
+      alert("Você já completou seu treino de hoje! Ganhe mais XP amanhã. 🔥");
+      return;
+    }
+
+    const yesterday = new Date();
+    yesterday.setDate(now.getDate() - 1);
+    const wasYesterday = lastCheckIn.toDateString() === yesterday.toDateString();
+
+    let newStreak = wasYesterday ? (profile.streak || 0) + 1 : 1;
+    let xpGain = 100 + (newStreak * 10); // Base 100 + bonus streak
+    let newXp = (profile.xp || 0) + xpGain;
+    let newLevel = Math.floor(newXp / 1000) + 1;
+
+    // Badge logic
+    const newBadges = [...(profile.badges || [])];
+    if (newStreak >= 7 && !newBadges.includes("Determinado")) newBadges.push("Determinado");
+    if (newLevel >= 10 && !newBadges.includes("Veterano")) newBadges.push("Veterano");
+
+    await updateProfileData({
+      xp: newXp,
+      level: newLevel,
+      streak: newStreak,
+      lastCheckIn: now,
+      badges: newBadges
+    });
+
+    alert(`Treino Concluído! +${xpGain} XP | 🔥 Streak: ${newStreak} dias!`);
+  };
 
   const setIsAuraMode = (val: boolean) => {
     if (val && !isAdmin) {
@@ -155,7 +210,7 @@ export function AuraProvider({ children }: { children: React.ReactNode }) {
         if (cachedMode) {
           setIsAuraModeState(true);
         } else if (userProf?.auraModeEnabled !== undefined) {
-          const isUserAdmin = u.email === 'nicolasgarrett110@gmail.com' || localStorage.getItem('auragym_admin_force') === 'true';
+          const isUserAdmin = (u.email && ADMIN_EMAILS.includes(u.email)) || localStorage.getItem('auragym_admin_force') === 'true';
           const r = isUserAdmin ? MEMBER_RANKS[2] : getRankByPlan(userProf.plan || "");
           if (r.level >= 2 || isUserAdmin) {
             setIsAuraModeState(userProf.auraModeEnabled);
@@ -201,7 +256,7 @@ export function AuraProvider({ children }: { children: React.ReactNode }) {
     setProfile(userProf);
     
     if (data.auraModeEnabled !== undefined) {
-      const isUserAdmin = user.email === 'nicolasgarrett110@gmail.com' || localStorage.getItem('auragym_admin_force') === 'true';
+      const isUserAdmin = (user.email && ADMIN_EMAILS.includes(user.email)) || localStorage.getItem('auragym_admin_force') === 'true';
       const r = isUserAdmin ? MEMBER_RANKS[2] : getRankByPlan(userProf?.plan || "");
       if (r.level >= 2 || isUserAdmin) {
         setIsAuraModeState(data.auraModeEnabled);
@@ -241,7 +296,9 @@ export function AuraProvider({ children }: { children: React.ReactNode }) {
       setActiveTab,
       isRankModalOpen,
       setIsRankModalOpen,
-      currentRank
+      currentRank,
+      isAdmin,
+      completeWorkout
     }}>
       {children}
     </AuraContext.Provider>

@@ -81,6 +81,10 @@ export async function signUpWithEmail(email: string, pass: string, name: string)
         email: email,
         auraModeEnabled: false,
         plan: 'Silver',
+        xp: 0,
+        level: 1,
+        streak: 0,
+        badges: [],
         createdAt: serverTimestamp()
       });
     } catch (error) {
@@ -131,6 +135,10 @@ export async function signIn() {
           email: user.email,
           auraModeEnabled: false,
           plan: 'Silver',
+          xp: 0,
+          level: 1,
+          streak: 0,
+          badges: [],
           createdAt: serverTimestamp()
         });
       } catch (error) {

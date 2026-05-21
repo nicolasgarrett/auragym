@@ -126,7 +126,7 @@ TÉCNICAS DE REGULAÇÃO DO COMPORTAMENTO:
   return (
     <section 
       id="blog" 
-      className={`py-28 relative overflow-hidden transition-all duration-1000 border-t ${
+      className={`py-20 md:py-28 relative overflow-hidden transition-all duration-1000 border-t ${
         isAuraMode 
           ? "bg-black text-white border-red-500/10" 
           : "bg-slate-950 text-slate-200 border-white/5"
@@ -134,51 +134,51 @@ TÉCNICAS DE REGULAÇÃO DO COMPORTAMENTO:
     >
       <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-black/35 to-transparent pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
         
         {/* Header Block according to aura/ambient mode */}
         {isAuraMode ? (
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 pb-8 border-b border-red-500/10">
-            <div>
-              <div className="inline-flex items-center gap-1 bg-red-950/20 border border-red-500/30 text-red-500 text-[8px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-full mb-3">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6 pb-6 md:pb-8 border-b border-red-500/10">
+            <div className="text-center md:text-left">
+              <div className="inline-flex items-center gap-1 bg-red-950/20 border border-red-500/30 text-red-500 text-[7px] md:text-[8px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-full mb-4">
                 <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
                 CONTEÚDOS DE BIO-MECÂNICA CRÍTICA
               </div>
-              <h2 className="text-4xl md:text-7xl font-display font-black tracking-tighter uppercase leading-none italic">
+              <h2 className="text-3xl md:text-7xl font-display font-black tracking-tighter uppercase leading-tight italic">
                 RELATÓRIOS DO <span className="text-red-500 glow-accent italic animate-pulse">FRONT CIVIL</span>
               </h2>
             </div>
-            <p className="text-zinc-500 text-[10px] font-bold tracking-widest uppercase max-w-sm mt-3 leading-relaxed">
+            <p className="text-zinc-500 text-[9px] md:text-[10px] font-bold tracking-widest uppercase max-w-sm mt-2 md:mt-3 leading-relaxed md:text-right">
               Estudos empíricos e análises científicas exclusivas elaboradas por médicos e treinadores para elevar o nível de consciência fisiológica dos membros.
             </p>
           </div>
         ) : (
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 pb-8 border-b border-white/5">
-            <div>
-              <span className="text-accent font-black uppercase tracking-[0.25em] text-xs flex items-center gap-2 mb-2">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6 pb-6 md:pb-8 border-b border-white/5">
+            <div className="text-center md:text-left">
+              <span className="text-accent font-black uppercase tracking-[0.25em] text-[10px] md:text-xs flex items-center justify-center md:justify-start gap-2 mb-2">
                 <BookOpen className="w-4 h-4 text-accent" />
                 AURA INTELLECT
               </span>
-              <h2 className="text-4xl md:text-6xl font-display font-black uppercase italic tracking-tighter leading-none text-white">
+              <h2 className="text-3xl md:text-6xl font-display font-black uppercase italic tracking-tighter leading-tight text-white font-display">
                 CIÊNCIA DA <span className="text-accent glow-accent">PERFORMANCE</span>
               </h2>
             </div>
-            <p className="text-zinc-500 text-sm max-w-sm">
+            <p className="text-zinc-500 text-xs md:text-sm max-w-sm text-center md:text-right">
               Artigos técnicos e guias escritos pela nossa equipe de médicos esportivos, nutricionistas de elite e fisiologistas corporais.
             </p>
           </div>
         )}
 
         {/* Filter Toolbar selection */}
-        <div className={`flex flex-wrap items-center gap-2 mb-12 py-3 border-b ${
+        <div className={`flex flex-wrap items-center justify-center md:justify-start gap-2 mb-10 md:mb-12 py-3 border-b ${
           isAuraMode ? "border-red-500/5 text-slate-300" : "border-white/5 text-slate-300"
         }`}>
-          <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 mr-4">FILTRAR ASSUNTOS:</span>
+          <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 mr-2 md:mr-4 hidden sm:block">FILTRAR ASSUNTOS:</span>
           {["Todos", "Biohacking", "Treino Híbrido", "Nutrição", "Mindset"].map((item) => (
             <button
               key={item}
               onClick={() => setActiveCategory(item)}
-              className={`px-5 py-2.5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] transition-all ${
+              className={`px-4 md:px-5 py-2 md:py-2.5 rounded-full text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap ${
                 activeCategory === item
                   ? (isAuraMode ? "bg-red-500 text-black shadow-lg shadow-red-500/25 font-extrabold" : "bg-accent text-white shadow-lg shadow-accent/20")
                   : "bg-white/[0.02] text-zinc-400 hover:text-white hover:bg-white/[0.04] border border-white/5"
@@ -190,7 +190,7 @@ TÉCNICAS DE REGULAÇÃO DO COMPORTAMENTO:
         </div>
 
         {/* Blog Post cards bento/deck layout grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredPosts.map((post) => {
             const isLiked = likedPosts.includes(post.id);
             return (

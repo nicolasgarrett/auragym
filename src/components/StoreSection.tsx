@@ -123,33 +123,33 @@ export default function StoreSection() {
   };
 
   return (
-    <section id="bio-produtos" className={`py-24 transition-colors duration-1000 ${isAuraMode ? 'bg-black text-white' : 'bg-slate-950/20 text-white'}`}>
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="bio-produtos" className={`py-16 md:py-24 transition-colors duration-1000 ${isAuraMode ? 'bg-black text-white' : 'bg-slate-950/20 text-white'}`}>
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
         
         {/* Header Title Section */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <div>
-            <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.2em] border ${
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-12 gap-6">
+          <div className="text-center md:text-left">
+            <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] border ${
               isAuraMode ? "bg-red-500/10 text-red-500 border-red-500/20" : "bg-[#00ff66]/10 text-[#00ff66] border-[#00ff66]/20"
             }`}>
               <Sparkles className="w-3 h-3 animate-pulse" />
               DESENVOLVIMENTO BIO-OTIMIZADO
             </span>
-            <h2 className="text-3xl md:text-5xl font-display font-black uppercase italic tracking-tighter mt-3">
+            <h2 className="text-3xl md:text-5xl font-display font-black uppercase italic tracking-tighter mt-3 leading-tight text-white">
               ECOSSISTEMA <span className={isAuraMode ? 'text-red-500' : 'text-accent'}>DE PRODUTOS ELITE</span>
             </h2>
-            <p className="text-slate-400 text-xs uppercase tracking-wider mt-2 max-w-xl">
+            <p className="text-slate-400 text-[10px] md:text-xs uppercase tracking-wider mt-3 md:mt-2 max-w-xl mx-auto md:mx-0">
               Equipamentos, suplementos de alto rendimento e tecnologias biomecânicas selecionadas cientificamente para guiar o seu desenvolvimento físico.
             </p>
           </div>
 
           {/* Category Tabs */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap items-center justify-center md:justify-end gap-2">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all cursor-pointer ${
+                className={`px-3 md:px-4 py-2 rounded-xl text-[9px] md:text-[10px] font-black uppercase tracking-widest border transition-all cursor-pointer whitespace-nowrap ${
                   activeCategory === cat
                     ? (isAuraMode 
                         ? "bg-red-500 text-black border-red-500" 
@@ -164,11 +164,11 @@ export default function StoreSection() {
         </div>
 
         {/* Product Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {filteredProducts.map((p) => (
             <div
               key={p.id}
-              className={`group relative rounded-[36px] overflow-hidden border transition-all duration-500 ${
+              className={`group relative rounded-[28px] md:rounded-[36px] overflow-hidden border transition-all duration-500 ${
                 isAuraMode 
                   ? "bg-[#0c0506]/85 border-red-500/10 hover:border-red-500/30 shadow-[0_4px_30px_rgba(255,51,51,0.03)]" 
                   : "bg-slate-900/40 border-white/5 hover:border-[#00ff66]/30 shadow-[0_4px_30px_rgba(0,0,0,0.2)]"

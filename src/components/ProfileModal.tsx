@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { X, User, Mail, Save, Loader2, Zap, Shield } from "lucide-react";
+import { X, User, Mail, Save, Loader2, Zap, Shield, Brain, Plus, FileText, Trash2, Upload, Layout, Flame, Trophy, Star, TrendingUp, Award } from "lucide-react";
 import { useAura } from "../contexts/AuraContext";
+import RestTimer from "./RestTimer";
 
 interface ProfileModalProps {
   isOpen: boolean;
@@ -9,13 +10,11 @@ interface ProfileModalProps {
 }
 
 export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
-  const { profile, updateProfile, isAuraMode, currentRank, setIsRankModalOpen, user } = useAura();
+  const { profile, updateProfile, isAuraMode, currentRank, setIsRankModalOpen, user, isAdmin } = useAura();
   const [name, setName] = useState("");
   const [auraEnabled, setAuraEnabled] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-
-  const isAdmin = user?.email === 'nicolasgarrett110@gmail.com' || localStorage.getItem('auragym_admin_force') === 'true';
 
   useEffect(() => {
     if (profile) {
@@ -57,7 +56,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
-            className={`relative w-full max-w-md border p-10 rounded-[40px] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] transition-all duration-500 overflow-hidden ${
+            className={`relative w-full max-w-md max-h-[90vh] border p-8 md:p-10 rounded-[40px] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] transition-all duration-500 overflow-y-auto custom-scrollbar ${
               isAuraMode ? "bg-black border-aura/20 shadow-aura/5" : "bg-[#020617] border-white/10"
             }`}
           >
@@ -78,6 +77,85 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
               <p className="text-slate-400 text-xs font-medium uppercase tracking-widest opacity-60">
                 Gerencie sua identidade no ecossistema
               </p>
+            </div>
+
+            {/* Gamification Dashboard */}
+            <div className="grid grid-cols-2 gap-4 mb-8">
+              <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-5 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-3 opacity-20 transition-transform group-hover:scale-125">
+                  <Flame className="w-8 h-8 text-orange-500" />
+                </div>
+                <div className="relative z-10">
+                  <span className="text-[8px] font-black uppercase tracking-widest text-slate-500 block mb-1">Workout Streak</span>
+                  <div className="flex items-end gap-2">
+                    <span className="text-3xl font-black italic tracking-tighter text-white">🔥 {profile?.streak || 0}</span>
+                    <span className="text-[9px] font-bold text-slate-500 mb-1.5">DIAS</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-5 relative overflow-hidden group text-right">
+                <div className="absolute top-0 left-0 p-3 opacity-20 transition-transform group-hover:scale-125">
+                  <TrendingUp className="w-8 h-8 text-accent" />
+                </div>
+                <div className="relative z-10">
+                  <span className="text-[8px] font-black uppercase tracking-widest text-slate-500 block mb-1">Nível Global</span>
+                  <div className="flex items-end justify-end gap-2">
+                    <span className="text-3xl font-black italic tracking-tighter text-white">LVL {profile?.level || 1}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* XP PROGRESS BAR */}
+            <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-6 mb-8 relative group overflow-hidden">
+              <div className="flex justify-between items-center mb-3">
+                <div className="flex items-center gap-2">
+                  <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
+                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Progresso de Experiência</span>
+                </div>
+                <span className="text-[10px] font-mono font-bold text-zinc-300">
+                  {profile?.xp ? (profile.xp % 1000) : 0} / 1000 XP
+                </span>
+              </div>
+              <div className="h-2 bg-black/40 rounded-full overflow-hidden border border-white/5">
+                <motion.div 
+                  initial={{ width: 0 }}
+                  animate={{ width: `${(profile?.xp ? (profile.xp % 1000) : 0) / 10}%` }}
+                  className={`h-full ${isAuraMode ? 'bg-aura shadow-[0_0_10px_rgba(239,68,68,0.5)]' : 'bg-accent shadow-[0_0_10px_rgba(6,182,212,0.5)]'} rounded-full`}
+                />
+              </div>
+              <p className="mt-3 text-[8px] text-zinc-500 font-bold uppercase tracking-widest text-center">
+                Ganhe mais <span className="text-white">XP</span> finalizando seus treinos diários e batendo metas.
+              </p>
+            </div>
+
+            {/* BADGES / ACHIEVEMENTS */}
+            {profile?.badges && profile.badges.length > 0 && (
+              <div className="mb-8 p-6 bg-white/[0.01] border border-white/5 rounded-3xl">
+                <h4 className="text-[9px] font-black uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
+                  <Award className="w-3.5 h-3.5" /> Conquistas Desbloqueadas
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {profile.badges.map((badge: string, i: number) => (
+                    <motion.div 
+                      key={i}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: i * 0.1 }}
+                      className={`px-3 py-1.5 rounded-xl border flex items-center gap-2 ${isAuraMode ? 'bg-red-500/10 border-red-500/20 text-red-400' : 'bg-accent/10 border-accent/20 text-accent'}`}
+                    >
+                      <Trophy className="w-3 h-3" />
+                      <span className="text-[9px] font-black uppercase tracking-widest">{badge}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* REST TIMER INTEGRATION */}
+            <div className="mb-8">
+              <RestTimer />
             </div>
 
             <form onSubmit={handleSave} className="space-y-6">

@@ -22,6 +22,49 @@ export default function AuraOverrideTransition() {
     if (isAuraMode) {
       setShowOverride(true);
       setBootLogIndex(0);
+
+      // Play tech sound
+      try {
+        const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+        
+        const playBeep = (freq: number, startTime: number, duration: number) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(freq, startTime);
+          gain.gain.setValueAtTime(0.05, startTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+          osc.start(startTime);
+          osc.stop(startTime + duration);
+        };
+
+        // Sequence of tech beeps
+        for (let i = 0; i < 12; i++) {
+          const startTime = audioCtx.currentTime + (i * 0.08);
+          playBeep(600 + Math.random() * 1200, startTime, 0.05);
+          // Random static noise bursts
+          if (Math.random() > 0.5) {
+            playBeep(200 + Math.random() * 300, startTime + 0.02, 0.02);
+          }
+        }
+        // Digital sweep
+        const sweepOsc = audioCtx.createOscillator();
+        const sweepGain = audioCtx.createGain();
+        sweepOsc.connect(sweepGain);
+        sweepGain.connect(audioCtx.destination);
+        sweepOsc.type = 'sawtooth';
+        sweepOsc.frequency.setValueAtTime(50, audioCtx.currentTime);
+        sweepOsc.frequency.exponentialRampToValueAtTime(3000, audioCtx.currentTime + 1.5);
+        sweepGain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+        sweepGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.5);
+        sweepOsc.start();
+        sweepOsc.stop(audioCtx.currentTime + 1.5);
+
+      } catch (e) {
+        console.warn("Audio Context blocked or unsupported");
+      }
       
       // Step through log indexes rapidly
       const interval = setInterval(() => {

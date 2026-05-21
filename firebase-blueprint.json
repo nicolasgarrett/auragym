@@ -10,10 +10,15 @@
         "email": { "type": "string" },
         "auraModeEnabled": { "type": "boolean" },
         "plan": { "type": "string" },
+        "xp": { "type": "integer" },
+        "level": { "type": "integer" },
+        "streak": { "type": "integer" },
+        "lastCheckIn": { "type": "string", "format": "date-time" },
+        "badges": { "type": "array", "items": { "type": "string" } },
         "createdAt": { "type": "string", "format": "date-time" },
         "updatedAt": { "type": "string", "format": "date-time" }
       },
-      "required": ["uid", "email", "plan"]
+      "required": ["uid", "email", "plan", "xp", "level", "streak"]
     }
   },
   "firestore": {

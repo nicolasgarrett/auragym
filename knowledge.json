@@ -1,0 +1,44 @@
+[
+  {
+    "id": "faq_hours",
+    "title": "Horários de Funcionamento",
+    "content": "Segunda a Sexta: 05h às 23h. Sábado: 08h às 18h. Domingos e Feriados: 09h às 14h.",
+    "type": "text",
+    "createdAt": "2026-05-21T00:00:00.000Z"
+  },
+  {
+    "id": "faq_location",
+    "title": "Localização AuraGym",
+    "content": "A AuraGym está localizada na Av. Paulista, 1200 - Bela Vista, São Paulo - SP. Oferecemos estacionamento privativo de alto padrão com Serviço de Manobrista gratuito para todos os atletas matriculados.",
+    "type": "text",
+    "createdAt": "2026-05-21T00:00:00.000Z"
+  },
+  {
+    "id": "faq_plans_ranks",
+    "title": "Regras de Planos e Ranks",
+    "content": "AuraGym oferece dois ecossistemas de preços:\n\nMODO PADRÃO:\n1. SILVER: R$ 79 (Mensal) | R$ 59 (Anual).\n2. GOLD: R$ 159 (Mensal) | R$ 119 (Anual).\n3. BLACK: R$ 209 (Mensal) | R$ 159 (Anual).\n\nMODO AURA (Protocolos Híbridos):\n1. HYBRID LITE: R$ 119 (Mensal) | R$ 89 (Anual).\n2. HYBRID MAX: R$ 189 (Mensal) | R$ 139 (Anual).\n3. APEX ELITE: R$ 329 (Mensal) | R$ 249 (Anual).",
+    "type": "text",
+    "createdAt": "2026-05-21T00:00:00.000Z"
+  },
+  {
+    "id": "faq_timer",
+    "title": "Funcionamento do Cronômetro de Descanso",
+    "content": "O Cronômetro de Descanso (Aura Rest) permite janelas de 30s, 45s ou 60s para manter a intensidade. Ativado diretamente na aba de Treino.",
+    "type": "text",
+    "createdAt": "2026-05-21T00:00:00.000Z"
+  },
+  {
+    "id": "faq_aura_mode",
+    "title": "Modo Aura",
+    "content": "O Modo Aura (Overdrive) é uma interface de alto estresse sensorial (estética vermelha) que revela a loja de PRO-DUTOS e métricas bio-mecânicas. Exclusivo para Ranks Titan e Apex.",
+    "type": "text",
+    "createdAt": "2026-05-21T00:00:00.000Z"
+  },
+  {
+    "id": "faq_holidays",
+    "title": "Regras de Feriados",
+    "content": "Em feriados nacionais e municipais de SP, a AuraGym opera em regime reduzido: 09h às 14h. Não há aulas coletivas nestes dias, apenas treino livre e recovery.",
+    "type": "text",
+    "createdAt": "2026-05-21T00:00:00.000Z"
+  }
+]
