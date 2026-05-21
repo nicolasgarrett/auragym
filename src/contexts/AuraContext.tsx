@@ -135,8 +135,8 @@ export function AuraProvider({ children }: { children: React.ReactNode }) {
   
   const initialProfile = {
     uid: user?.uid || "admin-forced",
-    displayName: profile?.displayName || "Nicolas Garrett (ADMIN)",
-    email: user?.email || profile?.email || "nicolasgarrett110@gmail.com",
+    displayName: user?.displayName || "Administrador Aura",
+    email: user?.email || "admin@auragym.com.br",
     auraModeEnabled: isAuraModeState,
     plan: "Black VIP (Super Admin)",
     xp: profile?.xp || 15000,

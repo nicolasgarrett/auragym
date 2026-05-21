@@ -257,6 +257,36 @@ export default function AdminDashboard() {
                   </button>
                 </div>
               </section>
+
+              <section className="bg-white/[0.03] border border-white/5 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 blur-[80px] -mr-16 -mt-16 group-hover:bg-indigo-500/10 transition-all duration-700" />
+                
+                <h2 className="text-sm font-black uppercase tracking-[0.25em] text-indigo-400 mb-8 flex items-center gap-3">
+                  <Users className="w-5 h-5" /> Recursos p/ Colaboradores
+                </h2>
+
+                <div className="space-y-3">
+                  <a 
+                    href="https://ai.studio/build/3ff08f24-dc55-48f5-968c-97c12a6a8763" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="w-full py-4 rounded-xl bg-white/5 border border-white/10 text-white font-black text-[9px] uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-white/10 transition-all"
+                  >
+                    Abrir Editor AI Studio
+                  </a>
+                  <a 
+                    href="https://github.com" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="w-full py-4 rounded-xl bg-zinc-900 border border-white/5 text-zinc-500 font-black text-[9px] uppercase tracking-widest flex items-center justify-center gap-3 hover:text-white hover:border-white/20 transition-all"
+                  >
+                    Acessar Repositório Git
+                  </a>
+                  <p className="text-[8px] text-zinc-600 font-bold uppercase tracking-widest text-center mt-4">
+                    Utilize estes links para gerenciar o código-fonte e convidar novos administradores da matilha.
+                  </p>
+                </div>
+              </section>
             </div>
           </div>
 
