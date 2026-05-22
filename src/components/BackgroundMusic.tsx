@@ -257,7 +257,7 @@ export default function BackgroundMusic() {
           >
             <div className="flex items-center justify-between">
               <span className="text-[7px] font-black uppercase text-slate-500 tracking-wider font-mono">
-                {isAuraMode ? "AURA TRANCE ACTIVE" : "SOM EXCLUSIVO"}
+                {isAuraMode ? "AURA TRANCE ACTIVE" : "PLAYLIST DA MATILHA"}
               </span>
               {/* Visualizer bars */}
               <div className="flex items-end gap-0.5 h-3 overflow-hidden shrink-0">

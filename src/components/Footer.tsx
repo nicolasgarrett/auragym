@@ -145,26 +145,26 @@ export default function Footer({ onOpenPrivacy }: FooterProps) {
           </div>
         </div>
 
-        {isAuraMode && (
-          <div className="mb-16 pt-8 border-t border-red-500/10">
-            <h4 className="text-red-500 font-black uppercase tracking-[0.2em] text-lg mb-6 flex items-center justify-center gap-3">
-              <Dumbbell className="w-5 h-5 animate-pulse" />AURAMAXXING<Dumbbell className="w-5 h-5 animate-pulse" />
-            </h4>
-            <div className="max-w-3xl mx-auto rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(239,68,68,0.1)] border border-red-500/20">
-              <iframe 
-                data-testid="embed-iframe" 
-                style={{ borderRadius: '12px' }} 
-                src="https://open.spotify.com/embed/playlist/41gKTGjoceOminuOTzMgAK?utm_source=generator&theme=0" 
-                width="100%" 
-                height="352" 
-                frameBorder="0" 
-                allowFullScreen={false} 
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                loading="lazy"
-              ></iframe>
-            </div>
+        <div className={`mb-16 pt-8 border-t ${isAuraMode ? 'border-red-500/10' : 'border-[#00ff66]/10'}`}>
+          <h4 className={`${isAuraMode ? 'text-red-500' : 'text-accent'} font-black uppercase tracking-[0.2em] text-lg mb-6 flex items-center justify-center gap-3`}>
+            <Dumbbell className="w-5 h-5 animate-pulse" />
+            {isAuraMode ? 'AURAMAXXING' : 'O SOM DA MATILHA'}
+            <Dumbbell className="w-5 h-5 animate-pulse" />
+          </h4>
+          <div className={`max-w-3xl mx-auto rounded-3xl overflow-hidden shadow-2xl border ${isAuraMode ? 'shadow-red-500/5 border-red-500/20' : 'shadow-accent/5 border-accent/20'}`}>
+            <iframe 
+              data-testid="embed-iframe" 
+              style={{ borderRadius: '12px' }} 
+              src="https://open.spotify.com/embed/playlist/41gKTGjoceOminuOTzMgAK?utm_source=generator&theme=0" 
+              width="100%" 
+              height="352" 
+              frameBorder="0" 
+              allowFullScreen={false} 
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+              loading="lazy"
+            ></iframe>
           </div>
-        )}
+        </div>
 
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-600 uppercase tracking-widest">
           <p>© 2026 Aura Performance Gym. Todos os direitos reservados.</p>

@@ -130,13 +130,17 @@ export function AuraProvider({ children }: { children: React.ReactNode }) {
     'abner.s.s.machado@gmail.com',
   ];
 
+  const adminEmail = user?.email || localStorage.getItem('auragym_admin_email') || "admin@auragym.com.br";
   const isAdmin = (user?.email && ADMIN_EMAILS.includes(user.email)) || localStorage.getItem('auragym_admin_force') === 'true';
   const currentRank = isAdmin ? MEMBER_RANKS[2] : getRankByPlan(profile?.plan || "");
   
   const initialProfile = {
     uid: user?.uid || "admin-forced",
-    displayName: user?.displayName || "Administrador Aura",
-    email: user?.email || "admin@auragym.com.br",
+    displayName: user?.displayName || (
+      adminEmail === 'abner.s.s.machado@gmail.com' ? "Abner Machado (EDITOR)" : 
+      adminEmail.includes('nicolas') ? "Nicolas Garrett (ADMIN)" : "Administrador Aura"
+    ),
+    email: adminEmail,
     auraModeEnabled: isAuraModeState,
     plan: "Black VIP (Super Admin)",
     xp: profile?.xp || 15000,

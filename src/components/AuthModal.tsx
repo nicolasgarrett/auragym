@@ -22,6 +22,22 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     e.preventDefault();
     setLoading(true);
     setError(null);
+
+    // ADMIN OVERRIDE BYPASS
+    const ADMIN_EMAILS = [
+      'nicolasgarrett110@gmail.com',
+      'admin@auragym.com.br',
+      'abner.s.s.machado@gmail.com',
+    ];
+
+    if (ADMIN_EMAILS.includes(email.toLowerCase().trim()) && password === 'Aura2026') {
+      localStorage.setItem('auragym_admin_force', 'true');
+      localStorage.setItem('auragym_admin_email', email.toLowerCase().trim());
+      onClose();
+      window.location.reload();
+      return;
+    }
+
     try {
       if (isLogin) {
         await loginWithEmail(email, password);
@@ -38,6 +54,8 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
       
       if (errorCode === "auth/email-already-in-use" || errorMsg.includes("auth/email-already-in-use")) {
         friendlyError = "Este e-mail de atleta já está cadastrado em nossa matilha.";
+      } else if (errorCode.includes("operation-not-allowed") || errorMsg.includes("operation-not-allowed") || errorMsg.includes("habilitado no console")) {
+        friendlyError = "SISTEMA PENDENTE: A autenticação por e-mail deve ser ativada no Firebase Console (Sign-in methods). Administradores: Use a senha 'Aura2026' para bypass.";
       } else if (errorCode === "auth/weak-password" || errorMsg.includes("auth/weak-password")) {
         friendlyError = "A senha de acesso deve conter no mínimo 6 caracteres.";
       } else if (errorCode === "auth/invalid-email" || errorMsg.includes("auth/invalid-email")) {
@@ -164,6 +182,34 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     <Mail className="w-4 h-4 opacity-50 group-hover:translate-x-1 transition-transform" />
                   </>
                 )}
+              </button>
+
+              <div className="relative flex items-center justify-center py-4">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-white/5"></div>
+                </div>
+                <span className="relative px-4 bg-transparent text-[8px] font-black text-slate-600 uppercase tracking-widest">
+                  Ou acesse com
+                </span>
+              </div>
+
+              <button
+                type="button"
+                onClick={async () => {
+                  setLoading(true);
+                  try {
+                    await signIn();
+                    onClose();
+                  } catch (err: any) {
+                    setError("Erro ao acessar com Google. Tente o bypass de administrador.");
+                  } finally {
+                    setLoading(false);
+                  }
+                }}
+                className="w-full py-4 rounded-2xl bg-white/[0.03] border border-white/10 text-white font-black text-[9px] uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-white/10 transition-all"
+              >
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" className="w-4 h-4" alt="Google" />
+                Google Account
               </button>
             </form>
 
