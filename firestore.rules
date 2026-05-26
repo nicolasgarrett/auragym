@@ -34,21 +34,31 @@ service cloud.firestore {
              data.email is string && data.email.size() <= 120 &&
              data.auraModeEnabled is bool &&
              data.plan is string && data.plan.size() <= 120 &&
+             data.role is string && (data.role == "aluno" || data.role == "admin") &&
+             data.xp is int && data.xp >= 0 &&
+             data.level is int && data.level >= 1 &&
+             data.streak is int && data.streak >= 0 &&
+             data.badges is list && data.badges.size() <= 100 &&
              data.createdAt is timestamp &&
-             (!('updatedAt' in data) || data.updatedAt is timestamp);
+             (!('updatedAt' in data) || data.updatedAt is timestamp) &&
+             (!('lastCheckIn' in data) || data.lastCheckIn is timestamp);
     }
 
     match /users/{userId} {
-      allow get: if isOwner(userId);
-      allow create: if isOwner(userId) && 
+      allow get: if isOwner(userId) && isValidId(userId);
+      allow create: if isOwner(userId) && isValidId(userId) &&
                       isValidUserProfile(incoming()) &&
                       incoming().uid == request.auth.uid &&
-                      incoming().createdAt == request.time;
-      allow update: if isOwner(userId) &&
+                      incoming().role == "aluno" && // New users must be alunos
+                      incoming().createdAt == request.time &&
+                      incoming().keys().hasAll(['uid', 'displayName', 'email', 'auraModeEnabled', 'plan', 'role', 'xp', 'level', 'streak', 'badges', 'createdAt']) &&
+                      incoming().keys().size() == 11;
+      allow update: if isOwner(userId) && isValidId(userId) &&
                       isValidUserProfile(incoming()) &&
                       incoming().uid == existing().uid &&
                       incoming().createdAt == existing().createdAt &&
-                      incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'auraModeEnabled', 'plan', 'updatedAt']);
+                      incoming().role == existing().role && // Role cannot be changed by user
+                      incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'auraModeEnabled', 'plan', 'xp', 'level', 'streak', 'lastCheckIn', 'badges', 'updatedAt']);
     }
   }
 }

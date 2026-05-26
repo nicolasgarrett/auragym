@@ -8,6 +8,7 @@ interface UserProfile {
   email: string;
   auraModeEnabled: boolean;
   plan: string;
+  role: string;
   xp: number;
   level: number;
   streak: number;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Mail, Lock, User, Loader2 } from "lucide-react";
-import { signUpWithEmail, loginWithEmail } from "../lib/firebase";
+import { signUpWithEmail, loginWithEmail, signIn } from "../lib/firebase";
 import { useAura } from "../contexts/AuraContext";
 
 interface AuthModalProps {
@@ -55,7 +55,12 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
       if (errorCode === "auth/email-already-in-use" || errorMsg.includes("auth/email-already-in-use")) {
         friendlyError = "Este e-mail de atleta já está cadastrado em nossa matilha.";
       } else if (errorCode.includes("operation-not-allowed") || errorMsg.includes("operation-not-allowed") || errorMsg.includes("habilitado no console")) {
-        friendlyError = "SISTEMA PENDENTE: A autenticação por e-mail deve ser ativada no Firebase Console (Sign-in methods). Administradores: Use a senha 'Aura2026' para bypass.";
+        friendlyError = `SISTEMA: O login por E-mail/Senha está desativado no Console do Firebase.
+
+PARA CORRIGIR:
+1. Acesse: https://console.firebase.google.com/u/0/project/fast-composition-zkm1r/authentication/providers
+2. Clique em "Adicionar novo provedor" -> "E-mail/Senha"
+3. Ative a primeira opção e salve.`;
       } else if (errorCode === "auth/weak-password" || errorMsg.includes("auth/weak-password")) {
         friendlyError = "A senha de acesso deve conter no mínimo 6 caracteres.";
       } else if (errorCode === "auth/invalid-email" || errorMsg.includes("auth/invalid-email")) {

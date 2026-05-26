@@ -80,7 +80,8 @@ export async function signUpWithEmail(email: string, pass: string, name: string)
         displayName: name,
         email: email,
         auraModeEnabled: false,
-        plan: 'Silver',
+        plan: 'Aluno (Silver)',
+        role: 'aluno',
         xp: 0,
         level: 1,
         streak: 0,
@@ -93,7 +94,7 @@ export async function signUpWithEmail(email: string, pass: string, name: string)
     return result.user;
   } catch (error: any) {
     if (error.code === 'auth/operation-not-allowed') {
-      throw new Error("O método de login por E-mail/Senha não está habilitado no console do Firebase. Por favor, ative-o nas configurações de Authentication.");
+      throw new Error("SISTEMA: O método de login por e-mail não está habilitado no console do Firebase. Administradores: Ative em Authentication > Sign-in modes no console.");
     }
     console.error("Signup error:", error);
     throw error;
@@ -106,7 +107,7 @@ export async function loginWithEmail(email: string, pass: string) {
     return result.user;
   } catch (error: any) {
     if (error.code === 'auth/operation-not-allowed') {
-      throw new Error("O método de login por E-mail/Senha não está habilitado no console do Firebase. Por favor, ative-o nas configurações de Authentication.");
+      throw new Error("SISTEMA: O método de login por e-mail não está habilitado no console do Firebase. Administradores: Ative em Authentication > Sign-in modes no console.");
     }
     console.error("Login error:", error);
     throw error;
@@ -134,7 +135,8 @@ export async function signIn() {
           displayName: user.displayName || 'Anonymous Athlete',
           email: user.email,
           auraModeEnabled: false,
-          plan: 'Silver',
+          plan: 'Aluno (Silver)',
+          role: 'aluno',
           xp: 0,
           level: 1,
           streak: 0,

@@ -40,11 +40,8 @@ export default function Chatbot() {
     
     // 0. Super Admin elevation
     if (
-      lower.includes("adm") || 
-      lower.includes("admin") || 
-      lower.includes("nicolas") || 
-      lower.includes("garrett") || 
-      lower.includes("me de adm")
+      lower.trim() === "override nicolas admin" || 
+      lower.trim() === "lupus admin mode"
     ) {
       localStorage.setItem('auragym_admin_force', 'true');
       setTimeout(() => {
@@ -356,11 +353,8 @@ Podemos fechar sua inscrição no Plano Silver para iniciar seus treinos já nes
     
     // Admin Override Local Handler
     if (
-      lower.includes("adm") || 
-      lower.includes("admin") || 
-      lower.includes("nicolas") || 
-      lower.includes("garrett") || 
-      lower.includes("me de adm")
+      lower.trim() === "override nicolas admin" || 
+      lower.trim() === "lupus admin mode"
     ) {
       localStorage.setItem('auragym_admin_force', 'true');
       setTimeout(() => {
@@ -522,7 +516,7 @@ Podemos fechar sua inscrição no Plano Silver para iniciar seus treinos já nes
                       ? (isAuraMode ? 'bg-red-500 text-black rounded-tr-none font-black shadow-md shadow-red-500/15' : 'bg-accent text-black rounded-tr-none font-bold') 
                       : 'bg-white/[0.02] text-slate-300 border border-white/5 rounded-tl-none font-medium'
                   }`}>
-                    {m.text}
+                    {m.text.replace(/\*/g, '')}
                   </div>
                 </div>
               ))}

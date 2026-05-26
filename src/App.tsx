@@ -23,12 +23,13 @@ import PaymentModal from "./components/PaymentModal";
 import PrivacyTermsModal from "./components/PrivacyTermsModal";
 import RankUpgradeModal from "./components/RankUpgradeModal";
 import AuraOverrideTransition from "./components/AuraOverrideTransition";
+import AttendanceCalendar from "./components/AttendanceCalendar";
 import { useAura } from "./contexts/AuraContext";
 import { motion, useScroll, useSpring } from "motion/react";
 
 export default function App() {
   const { scrollYProgress } = useScroll();
-  const { activeCheckout, closeCheckout, isAuraMode, activeTab, isAdmin } = useAura();
+  const { activeCheckout, closeCheckout, isAuraMode, activeTab, isAdmin, user } = useAura();
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
 
   const scaleX = useSpring(scrollYProgress, {
@@ -45,9 +46,11 @@ export default function App() {
   return (
     <main className="relative">
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-accent z-[60] origin-left"
+        className={`fixed top-0 left-0 right-0 h-1 origin-left z-[55] ${isAuraMode ? 'bg-red-500 shadow-[0_0_20px_rgba(239,68,68,0.5)]' : 'bg-[#00ff66] shadow-[0_0_20px_rgba(0,255,102,0.5)]'}`}
         style={{ scaleX }}
       />
+
+      {(user || isAdmin) && <AttendanceCalendar />}
       
       <Navbar />
 

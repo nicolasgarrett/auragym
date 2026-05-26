@@ -10,6 +10,7 @@
         "email": { "type": "string" },
         "auraModeEnabled": { "type": "boolean" },
         "plan": { "type": "string" },
+        "role": { "type": "string", "enum": ["aluno", "admin"] },
         "xp": { "type": "integer" },
         "level": { "type": "integer" },
         "streak": { "type": "integer" },
