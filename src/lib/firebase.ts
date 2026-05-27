@@ -4,6 +4,7 @@
  */
 
 import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
 import { 
   getAuth, 
   GoogleAuthProvider, 
@@ -17,7 +18,8 @@ import { getFirestore, doc, getDoc, setDoc, updateDoc, serverTimestamp } from 'f
 import firebaseConfig from '../../firebase-applet-config.json';
 
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+export const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;
+export const db = getFirestore(app);
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 

@@ -1,10 +1,9 @@
 {
-  "projectId": "fast-composition-zkm1r",
-  "appId": "1:401067638328:web:20debba3b57e09887130cd",
-  "apiKey": "AIzaSyDqUX0mtFdsg9TYMpPBrNAup_mRfQHaPJE",
-  "authDomain": "fast-composition-zkm1r.firebaseapp.com",
-  "firestoreDatabaseId": "ai-studio-3ff08f24-dc55-48f5-968c-97c12a6a8763",
-  "storageBucket": "fast-composition-zkm1r.firebasestorage.app",
-  "messagingSenderId": "401067638328",
-  "measurementId": ""
+  "projectId": "auragym-b20b0",
+  "appId": "1:682336227753:web:763953fa466c95446bf4b8",
+  "apiKey": "AIzaSyDjnmZQl6t2ulpW7JEP-iv88PZoB_UvxFM",
+  "authDomain": "auragym-b20b0.firebaseapp.com",
+  "storageBucket": "auragym-b20b0.firebasestorage.app",
+  "messagingSenderId": "682336227753",
+  "measurementId": "G-4JN7X1MF0M"
 }
